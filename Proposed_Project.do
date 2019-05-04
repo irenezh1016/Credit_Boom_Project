@@ -67,8 +67,8 @@ drop if Year ==2017
 drop if missing(Year)
 
 // Drop special country cases and small states
-foreach num of numlist 612 624 632 684 716 512 636 732 967 614 912 419 218 516	628 634	248 642	646 429	433 916	443 672	694 449	453 922	456 733	537 369	925 466	299 474 {
-drop if CountryCode == `num'
+foreach num of numlist 612 624 632 684 716 512 636 732 967 614 912 419 218 516 628 634 248 642 646 429 433 916 443 672	694 449	453 922	456 733	537 369	925 466	299 474 {
+	drop if CountryCode == `num'
 }
 
 //clean up outliners in terms of extreme GDP growth or credit growth
