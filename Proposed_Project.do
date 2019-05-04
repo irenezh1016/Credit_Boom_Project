@@ -4,9 +4,9 @@
 **************************************************************
 **************************************************************
 clear
-cd "C:\Users\HZhang2\Desktop\APD\creditBoom"
+cd "C:\Users\TDI\project"
 
-import excel "C:\Users\HZhang2\Desktop\APD\creditBoom\wb_data3.xlsx", sheet("wb_data3") firstrow
+import excel "C:\Users\TDI\project\wb_data3.xlsx", sheet("wb_data3") firstrow
 destring gov_csmp FDI edu trd_gdp RGDPPC_PPP, replace force
 kountry CountryCode, from(iso3c) to(imfn)
 
@@ -15,31 +15,31 @@ rename _IMFN_ CountryCode
 rename year Year
 drop code_wb
 drop if missing(CountryCode)
-save "C:\Users\HZhang2\Desktop\APD\creditBoom\wbdata.dta",replace
+save "C:\Users\TDI\project\wbdata.dta",replace
 
 //Merge with credit dataset
 clear
-use C:\Users\HZhang2\Desktop\APD\creditBoom\datastata.dta
+use datastata.dta
 
-merge 1:1 Year CountryCode using C:\Users\HZhang2\Desktop\APD\creditBoom\wbdata.dta
+merge 1:1 Year CountryCode using wbdata.dta
 drop _merge
 drop if missing(Country)
 rename Unique unique
-save "C:\Users\HZhang2\Desktop\APD\creditBoom\merge1.dta",replace
+save merge1.dta,replace
 
 //Merge with crisis dataset
-use C:\Users\HZhang2\Desktop\APD\creditBoom\crisis.dta
-merge 1:1 unique using C:\Users\HZhang2\Desktop\APD\creditBoom\merge1.dta
+use crisis.dta
+merge 1:1 unique using merge1.dta
 drop year _merge
 drop if missing(CountryCode) &  missing(Year)
-save "C:\Users\HZhang2\Desktop\APD\creditBoom\merge2.dta",replace
+save merge2.dta,replace
 
 //Merge with Financial Direct Investment(FDI) dataset
 clear
-import excel "\\DATA2\APD\Data\PIU\Export_Diversification\datacleaning\FDI_stata.xlsx", sheet("Panel") firstrow
+import excel "C:\Users\TDI\project\FDI_stata.xlsx", sheet("Panel") firstrow
 rename code_id CountryCode
 rename year Year
-merge 1:1 CountryCode Year using C:\Users\HZhang2\Desktop\APD\creditBoom\merge2.dta
+merge 1:1 CountryCode Year using merge2.dta
 drop _merge
 
 **************************************************************
