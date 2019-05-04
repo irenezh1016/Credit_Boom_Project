@@ -164,12 +164,11 @@ outreg2 using Results.xls, append ctitle(regression 0) label tstat coefastr adds
 **************************************************************
 
 ****************************
-xtlogit Crisis CAD rev_imp inflation interaction credgrowth RGDPgrowth if cred2gdp > 90 , fe nolog // not significant
+xtlogit Crisis CAD rev_imp inflation interaction credgrowth RGDPgrowth if cred2gdp > 90 , fe nolog 
 margins, at(interaction = (0(100)3000)) atmeans
 marginsplot, ylabel(0(0.5)1.5) xtitle("Credit growth x Credit-to-GDP")
-outreg2 using 4-9-2019.xls, append
 ****************************
-xtlogit Crisis CAD rev_imp inflation interaction credgrowth RGDPgrowth if cred2gdp < 50 , fe nolog // not significant
+xtlogit Crisis CAD rev_imp inflation interaction credgrowth RGDPgrowth if cred2gdp < 50 , fe nolog 
 margins, at(interaction = (0(100)10000)) atmeans
 marginsplot, ylabel(0(0.5)1.5) xtitle("Credit growth x Credit-to-GDP")
 ****************************
